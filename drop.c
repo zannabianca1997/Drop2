@@ -343,10 +343,10 @@ lista_t * put_obstacle_in_list (obstacle_t* p,lista_t* l){
    \param plist puntatore al puntatore della lista da deallocare
 */
 void free_list (lista_t ** plist){
-    if(**plist == NULL) return; //niente da fare qui
+    if(*plist == NULL) return; //niente da fare qui
 
-    freelist( &(**plist->next) ) //libera la lista dopo
-    free(**plist->pobj) // libera l'oggetto
+    freelist( &(*plist->next) ) //libera la lista dopo
+    free(*plist->pobj) // libera l'oggetto
     free(*plist) // libera la lista stessa
     *plist = NULL; //segna che è libera
 }
