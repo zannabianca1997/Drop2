@@ -270,13 +270,13 @@ char * obstacle_to_string (obstacle_t * po, char* s, int n)
 */
 int put_obstacle_in_matrix (obstacle_t * s,char ** mat, unsigned n, unsigned m){
 
-    if(obstacle_t->s_i <  0 || obstacle_t->s_j <  0) return -1;
-    if(obstacle_t->d_i >= n || obstacle_t->d_j >= m) return -1;
+    if(s->s_i <  0 || s->s_j <  0) return -1;
+    if(s->d_i >= n || s->d_j >= m) return -1;
 
     int i; int j;
 
-    for(i = obstacle_t->s_i; i <= obstacle_t->d_i; i++){
-        for(j = obstacle_t->s_j; j <= obstacle_t->d_j; j++){
+    for(i = s->s_i; i <= s->d_i; i++){
+        for(j = s->s_j; j <= s->d_j; j++){
             mat[i][j] = OBSTACLE;
         }
     }
