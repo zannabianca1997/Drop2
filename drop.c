@@ -79,9 +79,10 @@ void free_matrix (char*** pmat, unsigned N)
 #define IS_EMPTY(x) ((x) == EMPTY)
 
 /* estrazione numeri casuali */
-#define RND_2_ADJ()  (my_rand() & 1) // estrae un numero tra 1 e 0 (bitwise operator, sempre più veloci)
+#define RND_2_RGT()  (my_rand() & 1) // estrae un numero tra 1 e 0 (bitwise operator, sempre più veloci)
+#define RND_2_LFT()  (my_rand() & 1) - 1 // estrae un numero tra 1 e 0 (bitwise operator, sempre più veloci)
 #define RND_2_APART() ((my_rand() & 1) * 2 - 1) // estrae un numero fra {-1, +1}
-#define RND_3()  (my_rand() % 3) // aggiunge un errore dell'un per mille a favore dello 0, ma corregge quello di 1/32 del generatore (...)
+#define RND_3() - 1  (my_rand() % 3) // aggiunge un errore dell'un per mille a favore dello 0, ma corregge quello di 1/32 del generatore (...)
 
 
 /** calcola la caduta della prossima particella restituendo le coordinate (i,j) del prossimo elemento dell'area da mettere a FULL
@@ -160,37 +161,37 @@ int step (int* next_i, int* next_j, adj_t ad, char** mat, int N, int M)
               ( j > 0           && IS_FULL(mat[i+1][j-1]))  ||
               ( j < M-1         && IS_FULL(mat[i+1][j+1]))
             ) ) break;
-	if ((ad == CROSS || ad == BOTH) &&//In questo modo Both equivale a controllare Cross e Diagonal
-	    ( ( i > 0     && IS_FULL(mat[i-1][j]))  ||
+        if ((ad == CROSS || ad == BOTH) &&//In questo modo Both equivale a controllare Cross e Diagonal
+            ( ( i > 0     && IS_FULL(mat[i-1][j]))  ||
               ( i < N-1   && IS_FULL(mat[i+1][j]))  ||
-              ( j > 0           && IS_FULL(mat[i][j-1]))  ||
-              ( j < M-1         && IS_FULL(mat[i][j+1]))
+              ( j > 0     && IS_FULL(mat[i][j-1]))  ||
+              ( j < M-1   && IS_FULL(mat[i][j+1]))
             ) ) break;
 
         left  = (j > 0   && IS_EMPTY(mat[i+1][j-1])); // true se la cella sotto a sinistra è libera
         right = (j < M-1 && IS_EMPTY(mat[i+1][j+1])); // true se la cella sotto a destra è libera
-	below = (j < M-1 && IS_EMPTY(mat[i+1][j])); // true se la cella sotto è libera
+        below = (j < M-1 && IS_EMPTY(mat[i+1][j])); // true se la cella sotto è libera
 
         if(left)
             if(right)
-		if(below)
-	                j += RND_3() - 1; // tutti e tre liberi: scelgo tra le tre possibilità
-		else
-			j += RND_2_APART(); // liberi tranne che al centro
+                if(below)
+	                j += RND_3(); // tutti e tre liberi: scelgo tra le tre possibilità
+                else
+                    j += RND_2_APART(); // liberi tranne che al centro
             else
-		if(below)
-	                j += RND_2_ADJ() - 1; // liberi sotto e sinistra
-		else
-			j -= 1; // libero solo a sinistra
+                if(below)
+	                j += RND_2_LFT(); // liberi sotto e sinistra
+                else
+                    j -= 1; // libero solo a sinistra
         else
             if(right)
-		if(below)
-	                j += RND_2_ADJ(); //liberi sotto e destra
-		else
-			j += 1; //libero solo a destra
-	    else
-		if(!below)
-			break; // adj era NONE e sotto sono tutti pieni: interrompi il ciclo senza aumentare i
+                if(below)
+	                j += RND_2_RGT(); //liberi sotto e destra
+                else
+                    j += 1; //libero solo a destra
+            else
+                if(!below)
+                    break; // adj era NONE e sotto sono tutti pieni: interrompi il ciclo senza aumentare i
 
             // ultimo caso solo below è vero, j resta invariata e i aumenta
     }
