@@ -1,6 +1,6 @@
 /**
   \file
-  \authors Giuseppe Zanichelli
+  \authors Giuseppe Zanichelli Bruno Bucciotti
   \brief Generatore di numeri casuali(ASSOLUTAMENTE NON SICURO), implementando un Linear Congruence Generator.
 */
 

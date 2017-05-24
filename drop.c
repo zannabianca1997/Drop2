@@ -1,3 +1,8 @@
+/**
+  \file
+  \authors Giuseppe Zanichelli Bruno Bucciotti
+  \brief assign2: file di implementazione drop
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -5,9 +10,6 @@
 
 #include "drop.h"
 #include "myrand.h"
-
-// dichiafazione del tipo booleano e dei suoi valori true e false
-typedef enum { false, true } bool;
 
 /** inizializza la matrice mat settando tutti i valori a EMPTY (stavolta non è globale!)
 
@@ -149,7 +151,7 @@ int step (int* next_i, int* next_j, adj_t ad, char** mat, int N, int M)
     int j = P0_J;
 
     //queste servono per segnarsi quali celle sono libere
-    bool left,  right, below;
+    int left,  right, below;
 
     // Questo ciclo simula la caduta (i aumenta a ogni giro).
     for(;i<N-1;i++)
@@ -281,4 +283,65 @@ int put_obstacle_in_matrix (obstacle_t * s,char ** mat, unsigned n, unsigned m){
         }
     }
     return 0;
+}
+
+/** compara due obstacle
+
+     L'ostacolo [(x1,y1),(t1,q1)] precede [(x2,y2),(t2,q2)] se vale che
+    se x1!= x2 e x1 < x2 oppure
+    se x1 == x2 e y1!= y2 e y1 < y2 oppure
+    se x1 == x2 e y1 == y2 e t1!= t2 e t1 < t2 oppure
+    se x1 == x2 e y1 == y2 e t1 == t2 e q1!= q2 e q1 < q2
+
+
+  \param a primo obstacle
+  \param b secondo obstacle
+
+  \retval 1 se a > b
+  \retval 0 altrimenti
+*/
+int maggiore_di(obstacle_t* a, obstacle_t* b){
+  if (a->s_i > b->s_i)
+    return 1;
+  if (a->s_i < b->s_i)
+    return 0;
+  if (a->s_j > b->s_j)
+    return 1;
+  if (a->s_j < b->s_j)
+    return 0;
+  if (a->d_i > b->d_i)
+    return 1;
+  if (a->d_i < b->d_i)
+    return 0;
+  if (a->d_j > b->d_j)
+    return 1;
+  return 0; // anche in caso di parità
+}
+
+/** inserisce un ostacolo nella lista mantenendo l'ordinamento crescente
+  \param p l'ostacolo da inserire (viene inserito direttamente senza effettuare copie)
+  \param l il puntatore alla testa della lista
+
+  \retval l il puntatore alla nuova testa della lista (dopo l'inserimento)
+
+*/
+lista_t * put_obstacle_in_list (obstacle_t* p,lista_t* l){
+    if(l != NULL && maggiore_di(p, l->pobj)){ // è più avanti
+        l->next = put_obstacle_in_list(p, l->next) //inseriscilo nel seguito
+        return l; //tutto bene
+    }
+    // altrimenti va in testa ( o coda, se ci siamo già arrivati )
+    lista_t * n_list;
+    n_list = malloc(sizeof(lista_t));
+    if(n_list == NULL) return NULL; // non so come fare di meglio. Dovrebbe dare errore
+    n_list->pobj = p;
+    n_list->next = l; // connetto al seguito (o a null, se finisce qui)
+    return n_list;
+}
+
+/** libera la memoria occupata dalla lista mettendo a NULL il puntatore alla lista
+   \param plist puntatore al puntatore della lista da deallocare
+*/
+void free_list (lista_t ** plist){
+    *plist = NULL
 }
