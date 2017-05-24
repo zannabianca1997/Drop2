@@ -269,5 +269,14 @@ char * obstacle_to_string (obstacle_t * po, char* s, int n)
   \retval -1 se l'ostacolo è incompatibile con l'area di caduta (es. le coordinate sono maggiori del numero di righe/colonne)
 */
 int put_obstacle_in_matrix (obstacle_t * s,char ** mat, unsigned n, unsigned m){
-    return 42;
+
+    if(obstacle_t->s_i <  0 || obstacle_t->s_j <  0) return -1;
+    if(obstacle_t->d_i >= n || obstacle_t->d_j >= m) return -1;
+
+    for(int i = obstacle_t->s_i; i <= obstacle_t->d_i; i++){
+        for(int j = obstacle_t->s_j; j <= obstacle_t->d_j; j++){
+            mat[i][j] = OBSTACLE;
+        }
+    }
+    return 0;
 }
