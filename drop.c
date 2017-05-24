@@ -327,7 +327,7 @@ int maggiore_di(obstacle_t* a, obstacle_t* b){
 */
 lista_t * put_obstacle_in_list (obstacle_t* p,lista_t* l){
     if(l != NULL && maggiore_di(p, l->pobj)){ // è più avanti
-        l->next = put_obstacle_in_list(p, l->next) //inseriscilo nel seguito
+        l->next = put_obstacle_in_list(p, l->next); //inseriscilo nel seguito
         return l; //tutto bene
     }
     // altrimenti va in testa ( o coda, se ci siamo già arrivati )
