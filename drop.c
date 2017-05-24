@@ -248,6 +248,6 @@ obstacle_t * string_to_obstacle (char * s)
 */
 char * obstacle_to_string (obstacle_t * po, char* s, int n)
 {
-    sprintf(s, "%d %d %d %d", po.s_i, po.s_j, po.d_i, po.d_j);
+    sprintf(s, "%d %d %d %d", po->s_i, po->s_j, po->d_i, po->d_j);
     return (*s);
 }
