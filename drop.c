@@ -17,7 +17,7 @@ typedef enum { false, true } bool;
 void init_matrix (char** mat, unsigned n, unsigned m)
 {
     //Se il puntatore è nullo esci
-    if (mat==NULL) return NULL;
+    if (mat==NULL) return;
 
     /*
     //La riga di Empty viene inizializzata
@@ -42,7 +42,7 @@ void init_matrix (char** mat, unsigned n, unsigned m)
 
     /* matrice vuota */
     if ( mat == NULL ) {
-      fprintf(f,"Matrice vuota.\n");
+      fprintf("Matrice vuota.\n");
       return;
     }
 
