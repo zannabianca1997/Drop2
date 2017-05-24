@@ -258,3 +258,16 @@ char * obstacle_to_string (obstacle_t * po, char* s, int n)
     sprintf(s, "%d %d %d %d", po->s_i, po->s_j, po->d_i, po->d_j);
     return (*s);
 }
+
+/** inserisce nella matrice di caduta l'ostacolo s marcando gli elementi corrispondenti all'ostacolo con OBSTACLE
+  \param s puntatore all'ostacolo da inserire
+   \param mat puntatore alla matrice
+   \param n numero di righe
+   \param m numero di colonne
+
+  \retval 0 se tutto è andato bene
+  \retval -1 se l'ostacolo è incompatibile con l'area di caduta (es. le coordinate sono maggiori del numero di righe/colonne)
+*/
+int put_obstacle_in_matrix (obstacle_t * s,char ** mat, unsigned n, unsigned m){
+    return 42;
+}
