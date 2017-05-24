@@ -42,7 +42,7 @@ void init_matrix (char** mat, unsigned n, unsigned m)
 
     /* matrice vuota */
     if ( mat == NULL ) {
-      fprintf("Matrice vuota.\n");
+      fprintf(stderr,"Matrice vuota.\n");
       return;
     }
 
