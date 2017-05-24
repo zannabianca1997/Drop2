@@ -273,8 +273,10 @@ int put_obstacle_in_matrix (obstacle_t * s,char ** mat, unsigned n, unsigned m){
     if(obstacle_t->s_i <  0 || obstacle_t->s_j <  0) return -1;
     if(obstacle_t->d_i >= n || obstacle_t->d_j >= m) return -1;
 
-    for(int i = obstacle_t->s_i; i <= obstacle_t->d_i; i++){
-        for(int j = obstacle_t->s_j; j <= obstacle_t->d_j; j++){
+    int i; int j;
+
+    for(i = obstacle_t->s_i; i <= obstacle_t->d_i; i++){
+        for(j = obstacle_t->s_j; j <= obstacle_t->d_j; j++){
             mat[i][j] = OBSTACLE;
         }
     }
