@@ -342,10 +342,10 @@ lista_t * put_obstacle_in_list (obstacle_t* p,lista_t* l){
 /** libera la memoria occupata dalla lista mettendo a NULL il puntatore alla lista
    \param plist puntatore al puntatore della lista da deallocare
 */
-void free_list (lista_t ** plist){
+void free_list(lista_t ** plist){
     if(*plist == NULL) return; //niente da fare qui
 
-    freelist( &((*plist)->next) ); //libera la lista dopo
+    free_list( &((*plist)->next) ); //libera la lista dopo
     free((*plist)->pobj); // libera l'oggetto
     free(*plist); // libera la lista stessa
     *plist = NULL; //segna che è libera
