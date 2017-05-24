@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include <string.h>
 
@@ -217,23 +218,28 @@ int step (int* next_i, int* next_j, adj_t ad, char** mat, int N, int M)
 obstacle_t * string_to_obstacle (char * s)
 {
     int i;
-    int pos[4] = { 0 }; /* conterrà i 4 numeri */
+    int pos[4] = {0, 0, 0, 0}; /* conterrà i 4 numeri */
     for (i=0; i<4; i++) /* loop sui 4 numeri */
     {
-	/* strtol prende la stringa s (primo parmtro), isola il numero che compare all'inizio e lo ritorna come long (poi faccio cast a int)
+	/* strtol prende la stringa s (primo parmtro), isola il numero che compare all'inizio e lo ritorna
+	 come long (poi faccio cast a int)
 	il secondo parametro è un puntatore su cui viene salvato il pezzo restante di stringa. 10 è la base decimale
 	Per fortuna gli spazi bianchi iniziali vengono saltati (letto dalla documentazione e testato) */
 	pos[i] = (int) strtol(s, &s, 10);
     }
-    if (pos[0]<pos[2] && pos[1]<pos[3]) /* faccio il test richiesto */
+    if (pos[0] <= pos[2] && pos[1] <= pos[3] &&
+        pos[0] >= 0 && pos[2] >= 0 &&
+        pos[1] >= 0 && pos[3] >= 0) /* faccio il test richiesto */
     {
-	obstacle_t *obstacle = malloc(sizeof(obstacle_t));
-	if (!obstacle) return NULL; /* si spera che non capiti */
-	obstacle->s_i = pos[0];
-	obstacle->s_j = pos[1];
-	obstacle->d_i = pos[2];
-	obstacle->d_j = pos[3];
-	return obstacle;
+        obstacle_t *obstacle = malloc(sizeof(obstacle_t));
+        if (obstacle == NULL) return NULL; /* si spera che non capiti */
+
+        obstacle->s_i = pos[0];
+        obstacle->s_j = pos[1];
+        obstacle->d_i = pos[2];
+        obstacle->d_j = pos[3];
+
+        return obstacle;
     }
     return NULL;//Altrimenti
 }

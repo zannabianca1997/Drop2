@@ -39,7 +39,7 @@ char * bad[] = {
   NULL
 };
 
-/* test sulla conversione di ostacoli e sul piazzamento degli ostacoli 
+/* test sulla conversione di ostacoli e sul piazzamento degli ostacoli
    nell'area di caduta*/
 int main (void) {
 
@@ -67,7 +67,7 @@ int main (void) {
        		fprintf(stderr,"test 3.1.2 --> fallito!\n");
        		return EXIT_FAILURE;
   	}
-        fprintf(stdout, "%s = %s\n", good[i], s);
+    fprintf(stdout, "%s = %s\n", good[i], s);
 	/* l'oggetto puntato da p non serve piu' */
 	free(p);
    }
@@ -80,14 +80,14 @@ int main (void) {
        		return EXIT_FAILURE;
   	}
 
-  	
+
         fprintf(stdout, "%s = bad\n", bad[i]);
    }
 
 
   /* Test 3.2 */
   fprintf(stdout,"Test 3.2: \n");
- 
+
   /*inserisco gli ostacoli ben formati in un'area di caduta */
   mat = new_matrix(N,M);
   init_matrix(mat,N,M);
@@ -99,7 +99,7 @@ int main (void) {
         fprint_matrix(stdout,mat,N,M);
 	/* l'ostacolo puntato da p non serve piu' */
 	free(p);
-	
+
   }
 
   f = fopen(FILE1,"w");
@@ -113,7 +113,7 @@ int main (void) {
   /* deallochiamo la matrice e chiudiamo il file */
   free_matrix(&mat,N);
   fclose(f);
-  
+
   return 0;
 
 }
