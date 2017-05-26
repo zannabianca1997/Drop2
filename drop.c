@@ -83,7 +83,7 @@ void free_matrix (char*** pmat, unsigned N)
 
 /* estrazione numeri casuali */
 #define RND_2_RGT()  (my_rand() & 1) // estrae un numero tra 1 e 0 (bitwise operator, sempre più veloci)
-#define RND_2_LFT()  ((my_rand() & 1) - 1) // estrae un numero tra 1 e 0 (bitwise operator, sempre più veloci)
+#define RND_2_LFT()  ((my_rand() & 1) - 1) // estrae un numero tra -1 e 0 (bitwise operator, sempre più veloci)
 #define RND_2_APART() ((my_rand() & 1) * 2 - 1) // estrae un numero fra {-1, +1}
 #define RND_3()  ((my_rand() % 3) - 1) // aggiunge un errore dell'un per mille a favore dello 0, ma corregge quello di 1/32 del generatore (...)
 
